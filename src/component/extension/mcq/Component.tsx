@@ -1,8 +1,22 @@
 import { NodeViewContent, NodeViewProps, NodeViewWrapper } from "@tiptap/react";
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
+import { UserContext } from "../../UserProvider";
 
 const Component: React.FC<NodeViewProps> = (props) => {
   const ref = useRef<HTMLDivElement>(null);
+  const { userType } = useContext(UserContext);
+  const { getPos, editor, node } = props;
+
+  const onClearClick = () => {
+    const pos = getPos() - 1;
+    if (editor) {
+      editor
+        .chain()
+        .focus()
+        .deleteRange({ from: pos, to: pos + node.nodeSize })
+        .run();
+    }
+  };
 
   const onBtnClick = () => {
     if (!ref.current) return;
@@ -22,12 +36,25 @@ const Component: React.FC<NodeViewProps> = (props) => {
       <div className="p-2 bg-gray-200">
         <p className="text-slate-950 text-xs mb-4">QUICK QUIZ</p>
         <div ref={ref}>
-          <NodeViewContent className="Mcq-content" ref={ref} />
+          <NodeViewContent
+            className="Mcq-content"
+            ref={ref}
+            contentEditable={userType === "EDITOR"}
+          />
         </div>
 
         <div className="flex justify-end pr-2">
+          {userType === "EDITOR" && (
+            <button
+              className="bg-red-800 hover:bg-cyan-600 py-1 px-2 text-slate-50 rounded place-content-end font-semibold mr-2"
+              onClick={onClearClick}
+            >
+              Clear
+            </button>
+          )}
+
           <button
-            className="bg-cyan-500 hover:bg-cyan-600 py-1 px-2 text-slate-50 rounded place-content-end font-semibold"
+            className="bg-blue-800 hover:bg-cyan-600 py-1 px-2 text-slate-50 rounded place-content-end font-semibold"
             onClick={onBtnClick}
           >
             Submit

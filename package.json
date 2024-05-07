@@ -7,6 +7,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@tiptap/extension-text-style": "^2.3.1",
+    "@tiptap/pm": "^2.3.1",
     "@tiptap/react": "^2.3.1",
     "@tiptap/starter-kit": "^2.3.1",
     "@types/jest": "^27.5.2",

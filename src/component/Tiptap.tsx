@@ -1,6 +1,9 @@
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React from "react";
+import { Mcq } from "./extension/mcq";
+import Question from "./extension/question";
+import Options from "./extension/option";
 
 const MenuBar = () => {
   return <div className="flex p2"></div>;
@@ -8,7 +11,7 @@ const MenuBar = () => {
 
 export default function Tiptap() {
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [StarterKit, Mcq, Question, Options],
     content: `
     <h2>
       Hi there,

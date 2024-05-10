@@ -7,15 +7,21 @@ import Options from "../extension/option-extension";
 import Header from "./Header";
 import { LoadingContext } from "./provider/LoadingProvider";
 import { baseContent } from "../constant";
+import { ToastContext } from "./provider/ToastProvider";
 
 export default function Tiptap() {
   const { setLoading } = useContext(LoadingContext);
+  const { notify } = useContext(ToastContext);
   const extensions = [
     StarterKit,
     Mcq.configure({
       onLoading: () => setLoading(true),
       onSuccess() {
         setLoading(false);
+      },
+      onError() {
+        setLoading(false);
+        notify("Failed to create question");
       },
     }),
     Question,

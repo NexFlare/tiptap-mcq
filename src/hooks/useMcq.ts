@@ -7,6 +7,7 @@ import {
   updateQuestion,
 } from "../api/mcq";
 import { UserContext, UserType } from "../component/provider/UserProvider";
+import { ToastContext } from "../component/provider/ToastProvider";
 
 export interface MCQHook {
   ref: React.RefObject<HTMLDivElement>;
@@ -22,6 +23,7 @@ const useMCQ = (props: NodeViewProps): MCQHook => {
   const { getPos, editor, node } = props;
   const [id, setId] = useState<string | null>(props.node.attrs.mcqId);
   const { userType } = useContext(UserContext);
+  const { notify } = useContext(ToastContext);
   const [backgroundType, setBackgroundType] = useState<string>("bg-gray-200");
 
   const onClearClick = async () => {
@@ -64,9 +66,14 @@ const useMCQ = (props: NodeViewProps): MCQHook => {
       ref.current.querySelector(".node-question")?.textContent || "";
     if (!id) {
       const mcqResponse = await createQuestion({ question, options });
-      if (mcqResponse.error == null) setId(mcqResponse.response.id);
+      if (mcqResponse.error) {
+        notify(mcqResponse.error);
+        return;
+      }
+      setId(mcqResponse.response.id);
     } else {
-      await updateQuestion({ id, question, options });
+      const response = await updateQuestion({ id, question, options });
+      if (response.error) notify(response.error);
     }
   };
 
@@ -80,12 +87,15 @@ const useMCQ = (props: NodeViewProps): MCQHook => {
       const option = input.nextSibling?.textContent ?? "Unknown label";
       if (id) {
         const response = await answerQuestion(id, option);
-        if (!response.error) {
-          if (response.response.isCorrect) {
-            setBackgroundType("bg-green-200");
-          } else {
-            setBackgroundType("bg-red-200");
-          }
+        if (response.error) {
+          notify(response.error);
+          return;
+        }
+
+        if (response.response.isCorrect) {
+          setBackgroundType("bg-green-200");
+        } else {
+          setBackgroundType("bg-red-200");
         }
       }
     }

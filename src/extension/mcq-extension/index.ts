@@ -91,7 +91,7 @@ export const Mcq = Node.create<McqOptions>({
           this.options.onLoading();
           getGeneratedQuestion(selectedText)
             .then((data) => {
-              if (data.error) {
+              if (data.error || !data.response) {
                 this.options.onError();
                 return;
               }
@@ -99,7 +99,7 @@ export const Mcq = Node.create<McqOptions>({
               this.editor.commands.setMcq([data.response]);
             })
             .catch((error) => {
-              this.options.onSuccess();
+              this.options.onError();
               console.error("Error while fetching generated question", error);
             });
         } else {

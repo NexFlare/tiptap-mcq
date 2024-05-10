@@ -4,6 +4,7 @@ import Component from "../../component/extension/mcq/Component";
 import { MCQResponse } from "../../types/mcq.types";
 import { transformMcqResponse } from "../../util/transform/mcq";
 import { getGeneratedQuestion } from "../../api/mcq";
+import { generateId } from "../../util";
 
 interface McqOptions {
   onLoading: () => void;
@@ -113,7 +114,7 @@ export const Mcq = Node.create<McqOptions>({
 });
 
 const getDefautMcq = (): Content => {
-  const id = Math.random().toString(36).substring(7);
+  const id = generateId();
   return [
     {
       type: "mcq",
@@ -125,13 +126,13 @@ const getDefautMcq = (): Content => {
         },
         {
           type: "options",
-          content: [{ type: "text", text: "Option 1", attrs: { id } }],
-          attrs: { id },
+          content: [{ type: "text", text: "Option 1" }],
+          attrs: { name: id },
         },
         {
           type: "options",
-          content: [{ type: "text", text: "Option 2", attrs: { id } }],
-          attrs: { id },
+          content: [{ type: "text", text: "Option 2" }],
+          attrs: { name: id },
         },
       ],
     },

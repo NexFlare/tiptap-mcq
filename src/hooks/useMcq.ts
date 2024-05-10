@@ -8,6 +8,7 @@ import {
 } from "../api/mcq";
 import { UserContext, UserType } from "../component/provider/UserProvider";
 import { ToastContext } from "../component/provider/ToastProvider";
+import { message } from "../constant";
 
 export interface MCQHook {
   ref: React.RefObject<HTMLDivElement>;
@@ -70,10 +71,12 @@ const useMCQ = (props: NodeViewProps): MCQHook => {
         notify(mcqResponse.error);
         return;
       }
+      notify(message.QUESTION_SUCCESS);
       setId(mcqResponse.response.id);
     } else {
       const response = await updateQuestion({ id, question, options });
       if (response.error) notify(response.error);
+      else notify(message.QUESTION_UPDATE_SUCCESS);
     }
   };
 

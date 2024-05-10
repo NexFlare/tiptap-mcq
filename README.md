@@ -16,14 +16,14 @@ Make sure you have the backend running. The code could be found [here](https://g
 ## Available Keyboard Shortcuts
 
 `CMD + /` Uses Google's Generative AI to create MCQ based to selected prompt \
-`Enter` In MCQ node thiscommand makes sure correct name is assigned to radio button to prevent multiple selections \
+`Enter` In MCQ node this command makes sure correct name is assigned to radio button to prevent multiple selections \
 `CMD + Enter` To exit MCQ node at any time.
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-#### `npm init`
+#### `npm install`
 
 Install all the required dependencies
 

@@ -6,7 +6,7 @@ import Question from "../extension/question-extension";
 import Options from "../extension/option-extension";
 import Header from "./Header";
 import { LoadingContext } from "./provider/LoadingProvider";
-import { baseContent } from "../constant";
+import { baseContent, message } from "../constant";
 import { ToastContext } from "./provider/ToastProvider";
 
 export default function Tiptap() {
@@ -21,7 +21,7 @@ export default function Tiptap() {
       },
       onError() {
         setLoading(false);
-        notify("Failed to create question");
+        notify(message.QUESTION_ERROR);
       },
     }),
     Question,

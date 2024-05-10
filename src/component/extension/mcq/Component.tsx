@@ -36,7 +36,7 @@ const Component: React.FC<NodeViewProps> = (props) => {
           )}
 
           <div
-            className="bg-violet-800 hover:bg-violet-700 py-1 px-2 text-slate-50 rounded place-content-end font-semibold flex items-center"
+            className="bg-violet-800 hover:bg-violet-700 py-1 px-2 text-slate-50 rounded place-content-end font-semibold flex items-center hover:cursor-pointer"
             onClick={onActionButtonClick}
           >
             <span>

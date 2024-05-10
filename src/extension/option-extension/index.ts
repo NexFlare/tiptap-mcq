@@ -1,6 +1,6 @@
 import { Node, ReactNodeViewRenderer } from "@tiptap/react";
 import Component from "../../component/extension/option/Component";
-import { Editor } from "@tiptap/core/dist/packages/core/src/Editor";
+import { findMcqNode } from "../util";
 
 export const Options = Node.create({
   name: "options",
@@ -10,7 +10,7 @@ export const Options = Node.create({
 
   addAttributes() {
     return {
-      id: {
+      name: {
         default: null,
       },
       checked: {
@@ -41,7 +41,7 @@ export const Options = Node.create({
        */
       Enter: () => {
         if (!this.editor.isEditable) return false;
-        const mcqNode = findMcqNode(this.editor);
+        const { mcqNode } = findMcqNode(this.editor);
         const {
           state: {
             selection: { $from },
@@ -56,7 +56,7 @@ export const Options = Node.create({
           // If an mcq node is found, use its ID as the parentId
           return this.editor.commands.insertContentAt($from.end(), {
             type: "options",
-            attrs: { id: mcqNode.attrs.id },
+            attrs: { name: mcqNode.attrs.id },
             content: [{ type: "text", text: "New Option" }],
           });
         }
@@ -69,7 +69,7 @@ export const Options = Node.create({
        */
 
       "Mod-Enter": () => {
-        const mcqNode = findMcqNode(this.editor);
+        const { mcqNode } = findMcqNode(this.editor);
         const {
           state: {
             selection: { $from },
@@ -85,33 +85,5 @@ export const Options = Node.create({
     };
   },
 });
-
-/**
- *
- * @param editor
- * @returns Node | null
- *
- * @description This function is used to find the MCQ node in the editor
- */
-
-const findMcqNode = (editor: Editor) => {
-  const {
-    state: {
-      selection: { $from },
-    },
-  } = editor;
-
-  let depth = $from.depth;
-  let mcqNode = null;
-  while (depth > 0 && !mcqNode) {
-    const node = $from.node(depth);
-    if (node.type.name === "mcq") {
-      mcqNode = node;
-      break;
-    }
-    depth--;
-  }
-  return mcqNode;
-};
 
 export default Options;

@@ -31,3 +31,10 @@ export const url = {
   questionAI: `${baseUrl}/question/ai`,
   answer: `${baseUrl}/answer`,
 };
+
+export const message = {
+  QUESTION_SUCCESS: "Question created successfully",
+  QUESTION_ERROR: "Error creating question",
+  QUESTION_UPDATE_SUCCESS: "Question updated successfully",
+  QUESTION_UPDATE_ERROR: "Error updating question",
+};

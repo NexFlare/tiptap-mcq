@@ -12,7 +12,7 @@ const Component: React.FC<NodeViewProps> = (props) => {
         <input
           type="radio"
           className="mr-2"
-          name={props.node.attrs.id}
+          name={props.node.attrs.name}
           checked={checked}
           onChange={() => {}}
           onClick={() => {

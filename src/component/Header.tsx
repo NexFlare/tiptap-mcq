@@ -39,7 +39,7 @@ export default function Header() {
           )}
         </div>
         {loading && (
-          <div className="justify-self-center px-2 py-1 bg-blue-200 border-blue-500 rounded-md border-2 border-solid font-bold">
+          <div className="px-2 py-1 bg-blue-200 border-blue-500 rounded-md border-2 border-solid font-bold">
             Loading
           </div>
         )}

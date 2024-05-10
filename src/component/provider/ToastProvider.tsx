@@ -18,7 +18,7 @@ const ToastProvider: React.FC<{ children: React.ReactNode }> = (props) => {
   return (
     <ToastContext.Provider value={{ notify }}>
       {props.children}
-      <ToastContainer position="top-right" autoClose={5000} theme="dark" />
+      <ToastContainer position="bottom-right" autoClose={5000} theme="dark" />
     </ToastContext.Provider>
   );
 };

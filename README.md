@@ -11,7 +11,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Prerequisites
 
-Make sure you have the backend running. THe code could be found [here](https://github.com/NexFlare/TipTap-Express)
+Make sure you have the backend running. The code could be found [here](https://github.com/NexFlare/TipTap-Express)
 
 ## Available Keyboard Shortcuts
 

@@ -1,14 +1,17 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Tiptap from "./component/Tiptap";
-import Header from "./component/Header";
+import LoadingProvider from "./component/provider/LoadingProvider";
+import UserProvider from "./component/provider/UserProvider";
 
 function App() {
   return (
-    <div>
-      <Header />
-      <Tiptap />
+    <div className="px-2">
+      <LoadingProvider>
+        <UserProvider>
+          <Tiptap />
+        </UserProvider>
+      </LoadingProvider>
     </div>
   );
 }

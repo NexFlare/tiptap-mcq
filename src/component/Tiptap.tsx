@@ -1,27 +1,33 @@
-import { EditorContent, useEditor } from "@tiptap/react";
+import { EditorProvider } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import React from "react";
-
-const MenuBar = () => {
-  return <div className="flex p2"></div>;
-};
+import React, { useContext } from "react";
+import { Mcq } from "../extension/mcq-extension";
+import Question from "../extension/question-extension";
+import Options from "../extension/option-extension";
+import Header from "./Header";
+import { LoadingContext } from "./provider/LoadingProvider";
+import { baseContent } from "../constant";
 
 export default function Tiptap() {
-  const editor = useEditor({
-    extensions: [StarterKit],
-    content: `
-    <h2>
-      Hi there,
-    </h2>
-    <p>
-      this is a <em>basic</em> example of <strong>tiptap</strong>. Sure, there are all kind of basic text styles you’d probably expect from a text editor. But wait until you see the lists:
-    </p>
-    `,
-  });
+  const { setLoading } = useContext(LoadingContext);
+  const extensions = [
+    StarterKit,
+    Mcq.configure({
+      onLoading: () => setLoading(true),
+      onSuccess() {
+        setLoading(false);
+      },
+    }),
+    Question,
+    Options,
+  ];
+  const content = baseContent;
   return (
-    <>
-      <MenuBar />
-      <EditorContent editor={editor} />
-    </>
+    <EditorProvider
+      slotBefore={<Header />}
+      extensions={extensions}
+      content={content}
+      children={null}
+    ></EditorProvider>
   );
 }

@@ -1,6 +1,7 @@
 import { NodeViewContent, NodeViewProps, NodeViewWrapper } from "@tiptap/react";
 import React from "react";
 import useMCQ from "../../../hooks/useMcq";
+import { ChevronRightIcon, XCircleFillIcon } from "@primer/octicons-react";
 
 const Component: React.FC<NodeViewProps> = (props) => {
   const {
@@ -26,19 +27,23 @@ const Component: React.FC<NodeViewProps> = (props) => {
         <div className="flex justify-end pr-2">
           {userType === "EDITOR" && (
             <button
-              className="bg-red-800 hover:bg-cyan-600 py-1 px-2 text-slate-50 rounded place-content-end font-semibold mr-2"
+              className="bg-red-800 hover:bg-red-700 py-1 px-2 text-slate-50 rounded place-content-end font-semibold mr-2 flex items-center"
               onClick={onClearClick}
             >
-              Clear
+              <span>Clear</span>
+              <XCircleFillIcon size={12} className="ml-1" />
             </button>
           )}
 
-          <button
-            className="bg-blue-800 hover:bg-cyan-600 py-1 px-2 text-slate-50 rounded place-content-end font-semibold"
+          <div
+            className="bg-violet-800 hover:bg-violet-700 py-1 px-2 text-slate-50 rounded place-content-end font-semibold flex items-center"
             onClick={onActionButtonClick}
           >
-            {userType === "EDITOR" ? (id ? "Update" : "Add") : "Submit"}
-          </button>
+            <span>
+              {userType === "EDITOR" ? (id ? "Update" : "Add") : "Submit"}
+            </span>
+            <ChevronRightIcon size={12} className="ml-1" />
+          </div>
         </div>
       </div>
     </NodeViewWrapper>

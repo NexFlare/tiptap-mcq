@@ -1,44 +1,24 @@
 import { NodeViewContent, NodeViewProps, NodeViewWrapper } from "@tiptap/react";
-import React, { useContext, useRef } from "react";
-import { UserContext } from "../../UserProvider";
+import React from "react";
+import useMCQ from "../../../hooks/useMcq";
 
 const Component: React.FC<NodeViewProps> = (props) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const { userType } = useContext(UserContext);
-  const { getPos, editor, node } = props;
-
-  const onClearClick = () => {
-    const pos = getPos() - 1;
-    if (editor) {
-      editor
-        .chain()
-        .focus()
-        .deleteRange({ from: pos, to: pos + node.nodeSize })
-        .run();
-    }
-  };
-
-  const onBtnClick = () => {
-    if (!ref.current) return;
-    const inputs = ref.current.querySelectorAll('input[type="radio"]');
-    const results = Array.from(inputs).map((input) => {
-      const label = input.nextSibling?.textContent ?? "Unknown label";
-      const checked = (input as HTMLInputElement).checked;
-      return { label, checked };
-    });
-    console.log("Results", results);
-    const questionDoc = ref.current.querySelector(".node-question");
-    console.log("Question", questionDoc?.textContent);
-  };
+  const {
+    onActionButtonClick,
+    onClearClick,
+    ref,
+    id,
+    userType,
+    backgroundType,
+  } = useMCQ(props);
 
   return (
     <NodeViewWrapper className="Mcq-wrapper mb-4">
-      <div className="p-2 bg-gray-200">
+      <div className={`p-2 ${backgroundType}`}>
         <p className="text-slate-950 text-xs mb-4">QUICK QUIZ</p>
         <div ref={ref}>
           <NodeViewContent
             className="Mcq-content"
-            ref={ref}
             contentEditable={userType === "EDITOR"}
           />
         </div>
@@ -55,9 +35,9 @@ const Component: React.FC<NodeViewProps> = (props) => {
 
           <button
             className="bg-blue-800 hover:bg-cyan-600 py-1 px-2 text-slate-50 rounded place-content-end font-semibold"
-            onClick={onBtnClick}
+            onClick={onActionButtonClick}
           >
-            Submit
+            {userType === "EDITOR" ? (id ? "Update" : "Add") : "Submit"}
           </button>
         </div>
       </div>

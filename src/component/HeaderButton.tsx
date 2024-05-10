@@ -17,9 +17,3 @@ const HeaderButton: React.FC<HeaderButtonProps> = ({ text, onClick }) => {
 };
 
 export default HeaderButton;
-
-// export default function HeaderButton() {
-//   return (
-//     <div>Button</div>
-//   )
-// }

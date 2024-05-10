@@ -1,6 +1,6 @@
 import { NodeViewContent, NodeViewWrapper } from "@tiptap/react";
 import React, { useContext } from "react";
-import { UserContext } from "../../UserProvider";
+import { UserContext } from "../../provider/UserProvider";
 
 export const Component = () => {
   const { userType } = useContext(UserContext);

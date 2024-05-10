@@ -10,10 +10,11 @@ export const UserContext = React.createContext<UserContextType>({
   setUserType: () => {},
 });
 
-type UserType = "EDITOR" | "VIEWER";
+export type UserType = "EDITOR" | "VIEWER";
 
 const UserProvider: React.FC<{ children: React.ReactNode }> = (props) => {
   const [userType, setUserType] = useState<UserType>("EDITOR");
+
   return (
     <UserContext.Provider value={{ userType, setUserType }}>
       {props.children}

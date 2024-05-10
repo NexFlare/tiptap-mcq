@@ -1,5 +1,5 @@
 import { Node, ReactNodeViewRenderer, mergeAttributes } from "@tiptap/react";
-import Component from "./Component";
+import Component from "../../component/extension/question/Component";
 
 export const Question = Node.create({
   name: "question",
